@@ -2,6 +2,7 @@ import os
 import win32com.client
 from docx import Document
 from fpdf import FPDF
+import comtypes.client
 
 # Define conversion functions for DOC files
 def convert_doc_to_docx(doc_file):
@@ -15,22 +16,7 @@ def convert_doc_to_html(doc_file):
     pass
 
 def convert_doc_to_pdf(doc_file):
-    # Load content from DOC file
-    doc = Document(doc_file)
-
-    # Create a new PDF document
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.add_page()
-
-    # Convert each paragraph to PDF text
-    for paragraph in doc.paragraphs:
-        pdf.set_font("Arial", size=12)
-        pdf.multi_cell(0, 10, paragraph.text)
-
-    # Save the PDF document
-    pdf.output(doc_file.replace(".doc", ".pdf"))
-
+    pass
 # Define conversion functions for DOCX files
 def convert_docx_to_doc(docx_file):
     pass
@@ -39,7 +25,21 @@ def convert_docx_to_html(docx_file):
     pass
 
 def convert_docx_to_pdf(docx_file):
-    pass
+    word_path = "file.docx"
+    pdf_path = "file.pdf"
+
+    doc = docx.Document(word_path)
+    word = comtypes.client.CreateObject("Word.Application")
+    docx_path = os.path.abspath(word_path)
+    pdf_path = os.path.abspath(pdf_path)
+
+    pdf_format = 17
+    word.Visible = False
+    in_file = word.Document.Open(docx_path)
+    in_file.SaveAs(pdf_path, FileFormat = pdf_format)
+    in_file.Close()
+    word.Quit()
+
 
 # Define conversion functions for XLSX files
 def convert_xlsx_to_xls(xlsx_file):
