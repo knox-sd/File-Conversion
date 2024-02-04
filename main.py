@@ -25,20 +25,30 @@ def convert_docx_to_html(docx_file):
     pass
 
 def convert_docx_to_pdf(docx_file):
-    word_path = "file.docx"
-    pdf_path = "file.pdf"
+    # Input and output file paths
+    docx_path = os.path.abspath(docx_file)
+    pdf_path = os.path.abspath(docx_file.replace(".docx", ".pdf"))
 
-    doc = docx.Document(word_path)
+    #Create a Word Application
     word = comtypes.client.CreateObject("Word.Application")
-    docx_path = os.path.abspath(word_path)
-    pdf_path = os.path.abspath(pdf_path)
+    word.Visible = False  # Set to True if you want to see the Word application
 
-    pdf_format = 17
-    word.Visible = False
-    in_file = word.Document.Open(docx_path)
-    in_file.SaveAs(pdf_path, FileFormat = pdf_format)
-    in_file.Close()
-    word.Quit()
+    try:
+        # Open the DOCX file
+        doc = word.Documents.Open(docx_path)
+
+        # Specify PDF format (17 is for PDF)
+        pdf_format = 17
+
+        # Save the document as PDF
+        doc.SaveAs(pdf_path, FileFormat=pdf_format)
+        doc.Close()
+
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        # Quit the Word application
+        word.Quit()
 
 
 # Define conversion functions for XLSX files
