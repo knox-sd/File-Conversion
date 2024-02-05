@@ -3,6 +3,7 @@ import win32com.client
 from docx import Document
 from fpdf import FPDF
 import comtypes.client
+from pdf2docx import converter
 
 # Define conversion functions for DOC files
 def convert_doc_to_docx(doc_file):
@@ -84,7 +85,15 @@ def convert_html_to_pdf(html_file):
 
 # Define conversion functions for PDF files
 def convert_pdf_to_docx(pdf_file):
-    pass
+    pdf_path = os.path.abspath(pdf_file)
+    docx_path = os.path.abspath(pdf_file.replace(".pdf",".docx"))
+
+    try:
+        cv = converter(pdf_file)
+        cv.convert(docx_file, start = 0, end = None)
+        cv.close()
+    except Exception as e:
+        print(f"Error: {e}")
 
 def convert_pdf_to_xlsx(pdf_file):
     pass
