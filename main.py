@@ -41,7 +41,7 @@ def convert_docx_to_pdf(docx_file):
         # Specify PDF format (17 is for PDF)
         pdf_format = 17
 
-        # Save the document as PDF
+        # Save the document as PDF 
         doc.SaveAs(pdf_path, FileFormat=pdf_format)
         doc.Close()
 
