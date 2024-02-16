@@ -2,6 +2,6 @@ I have attached a python script where it has a main menu where users can choose 
 
 I have convert.py in a folder with different file type.Not all file types can be converted to each other.I know you can look at existing script main menu to see what should be possible
 
-For example if I had file.docx in  I want it to be able to convert to pdf and make a new pdf file in same folder that file.docx is in
+For example if I had Computer programming.docx in  I want it to be able to convert to pdf and make a new pdf file in same folder that Computer programming.docx is in
 
 The input should be folder location.
